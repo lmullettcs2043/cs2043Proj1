@@ -1,0 +1,42 @@
+{% extends 'authenticate/base.html' %}
+
+{% block content %}
+
+<h1 class="text-center">Upload Your Medical Documents</h1>
+<div class="col-md-6 offset-md-3">
+	                {% if documents %}
+			                                        All Medical documents in the database:
+								                                                                <ul>
+																	                                                                                                        {% for document in documents %}
+
+																														                        <li><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li>
+
+																																	                                                        {% endfor %}
+
+																																								                                                                                </ul>
+
+																																																		                                                                                                {% else %}
+
+
+																																																														<p>No documents.</p>
+
+																																																														{% endif %}
+																																											
+
+
+																																																																																																	<form action="{% url "my-view" %}" method="post" enctype="multipart/form-data">
+																																																																																					
+																																																																																																			{% csrf_token %}
+																																																																																																			{{ message }}																										
+																																																																																																			<p>{{ form.non_field_errors }}</p>
+																																																																																																			
+																																																																																																			            <p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+																																																																																																				    
+																																																																																																				                <p>
+																																																																																																						                {{ form.docfile.errors }}
+																																																																																																								                {{ form.docfile }}
+																																																																																																										            </p><p><input type="submit" value="Upload" class="btn btn-primary"></p>
+																																																																																																	</form>
+</div>
+
+{% endblock %}
